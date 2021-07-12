@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install",
+    "test:ci": "npm run lint:fix"
   },
   "repository": {
     "type": "git",
@@ -26,7 +28,8 @@
     "pre-commit": "1.2.1",
     "sinon": "1.17.6",
     "sinon-chai": "2.8.0",
-    "super-request": "1.1.0"
+    "super-request": "1.1.0",
+    "husky": "^7.0.0"
   },
   "dependences": {
     "express": "4.17.1"
@@ -37,5 +40,10 @@
   "homepage": "https://github.com/haxdds/diralpha-service#readme",
   "dependencies": {
     "package.json": "^2.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test:ci"
+    }
   }
 }
