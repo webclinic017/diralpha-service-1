@@ -1,11 +1,9 @@
 const express = require('express');
+
 const app = express();
 
-// routes
-app.use((req, res) => {
-	res.status(200).json({
-		message: 'Hello world!!!'
-	});
-});
+app.use(express.json());
+
+app.use('/', require('./routes/index'));
 
 module.exports = app;
