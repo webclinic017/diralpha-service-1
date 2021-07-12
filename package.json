@@ -39,6 +39,7 @@
   },
   "homepage": "https://github.com/haxdds/diralpha-service#readme",
   "dependencies": {
+    "express": "^4.17.1",
     "package.json": "^2.0.1"
   },
   "husky": {
