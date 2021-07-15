@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const alpacaAccountEndpoint = 'https://CKQ76245TJS5U0EPO1TT:dM1IHTyDnp7wi6UzooIXl28DAAZ4fA6fLfQfMgrH@broker-api.sandbox.alpaca.markets/v1/accounts';
+const alpacaAccountEndpoint = `${process.env.ALPACA_ACCOUNT_ENDPOINT}`;
 
 const accountCreationGateway = {
 
