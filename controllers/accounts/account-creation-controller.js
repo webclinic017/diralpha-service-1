@@ -8,7 +8,17 @@ const accountsController = {
     */
     const response = accountCreationGateway.createAccount(res, req.body);
 
-    res.send(`hi ${response}`);
+    console.log(`HI! ${response}`);
+    response.then(
+      (value) => {
+        console.log(`VALUE: ${value}`);
+        res.send('Hello');
+      },
+      (error) => {
+        console.log(`ERROR: ${error}`);
+        res.send(error);
+      },
+    );
   },
 
 };

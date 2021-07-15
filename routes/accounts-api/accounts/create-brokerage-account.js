@@ -1,8 +1,8 @@
 const express = require('express');
-const accountsController = require('../../../controllers/accounts/accounts-controller');
+const accountCreationController = require('../../../controllers/accounts/account-creation-controller');
 
 const router = express.Router();
 
-router.post('/register', accountsController.register);
+router.post('/register', accountCreationController.register);
 
 module.exports = router;
