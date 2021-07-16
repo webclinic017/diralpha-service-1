@@ -1,8 +1,11 @@
 const express = require('express');
-const accountCreationController = require('../../../controllers/accounts/account-creation-controller');
+const accountValidationMiddleware = require('../../../middleware/accounts/account-validation');
+const accountsController = require('../../../controllers/accounts/accounts-controller');
 
 const router = express.Router();
 
-router.post('/register', accountCreationController.register);
+router.use('/register', accountValidationMiddleware.validate);
+
+router.post('/register', accountsController.register);
 
 module.exports = router;
