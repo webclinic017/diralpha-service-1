@@ -8,9 +8,6 @@ const accountCreationController = {
    * @param {Express Response} res the HTTP response object used to service the request
    */
   register(req, res) {
-    /* TODO:
-        Need to check if user already has account registered. Users cannot multiple accounts
-    */
     accountCreationService.createAccount(req, res);
   },
 
