@@ -13,11 +13,11 @@ const mockUserDataWithLogins = userData.map((user) => ({
 }));
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => queryInterface.bulkInsert('Users', mockUserDataWithLogins, {}),
+  up: async (queryInterface, Sequelize) => queryInterface.bulkInsert('users', mockUserDataWithLogins, {}),
   down: (queryInterface, Sequelize) => {
     const { Op } = Sequelize;
     const emails = mockUserDataWithLogins.map(({ email_address }) => email_address);
 
-    return queryInterface.bulkDelete('Users', { email_address: { [Op.in]: emails } }, {}).catch((error) => console.log(error));
+    return queryInterface.bulkDelete('users', { email_address: { [Op.in]: emails } }, {}).catch((error) => console.log(error));
   },
 };
