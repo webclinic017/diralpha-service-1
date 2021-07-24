@@ -8,7 +8,7 @@ const accountCreationController = {
    * @param {Express Response} res the HTTP response object used to service the request
    */
   register(req, res) {
-    accountCreationService.createAccount(req, res);
+    accountCreationService.createBrokerageAccount(req, res);
   },
 
 };

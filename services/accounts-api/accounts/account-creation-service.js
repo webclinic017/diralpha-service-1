@@ -2,10 +2,10 @@ const alpacaAccountCreationGateway = require('../../../alpaca-gateway/broker/acc
 
 const accountCreationService = {
 
-  createAccount(req, res) {
+  createBrokerageAccount(req, res) {
     // Sends a HTTP POST Request to Alpaca and captures the response
     // returns a promise which will be the response
-    const response = alpacaAccountCreationGateway.createAccount(res, req.body);
+    const response = alpacaAccountCreationGateway.createBrokerageAccount(res, req.body);
 
     response.then((value) => accountCreationService.handleAlpacaValidResponse(req, res, value))
       .catch((error) => accountCreationService.handleAlpacaErrorResponse(req, res, error));
