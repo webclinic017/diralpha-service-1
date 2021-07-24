@@ -4,7 +4,7 @@ const { v4: uuid4 } = require('uuid');
 module.exports = {
   up: async (queryInterface, Sequelize) => queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";')
     .then(() => {
-      queryInterface.createTable('Users', {
+      queryInterface.createTable('users', {
         id: {
           allowNull: false,
           primaryKey: true,
@@ -46,6 +46,6 @@ module.exports = {
       });
     }),
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('users');
   },
 };

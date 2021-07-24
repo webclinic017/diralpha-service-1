@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
 
-    async validPassword(password) {
+    async isValidPassword(password) {
       // asynchronously check if input password matches password on DB
       const match = await bcrypt.compare(password, this.password);
       return match;
