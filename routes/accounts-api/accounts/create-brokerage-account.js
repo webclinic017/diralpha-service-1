@@ -1,5 +1,5 @@
 const express = require('express');
-const accountValidationMiddleware = require('../../../middleware/accounts/account-validation');
+const accountValidationMiddleware = require('../../../middleware/validation/accounts/account-validation');
 const accountsController = require('../../../controllers/accounts/accounts-controller');
 
 const router = express.Router();
