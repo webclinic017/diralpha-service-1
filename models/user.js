@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       beforeCreate: async (user, options) => {
         // hash password with salt of 2^10 iterations
+        user.lastLogin = new Date();
         user.password = await bcrypt.hash(user.password, 10);
       },
       beforeUpdate: async (user, options) => {

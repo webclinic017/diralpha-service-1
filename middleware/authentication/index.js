@@ -5,10 +5,11 @@ const { User } = require('../../models');
 
 const isUniqueEmail = (emailAddress) => User.findOne({ where: { emailAddress } })
   .then((token) => token !== null)
-  .then((isUnique) => isUnique);
+  .then((found) => !found);
 
 const signUp = async (emailAddress, password) => {
-  const isUnique = isUniqueEmail(emailAddress);
+  const isUnique = await isUniqueEmail(emailAddress);
+
   if (!isUnique) {
     return {
       user: null,
@@ -18,12 +19,12 @@ const signUp = async (emailAddress, password) => {
     };
   }
   try {
-    const lastLogin = new Date();
-    const userRecord = await User.create({ emailAddress, password, lastLogin });
+    const userRecord = await User.create({ emailAddress, password });
 
     return {
       user: {
         emailAddress: userRecord.emailAddress,
+        password: userRecord.password,
       },
       message: {
         content: 'Successful signup',
