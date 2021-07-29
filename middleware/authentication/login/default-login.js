@@ -24,14 +24,14 @@ const login = async (req, res) => {
   const userRecord = await User.findOne({ where: { emailAddress } });
 
   if (userRecord === null) {
-    res.json(failedLoginResponse);
+    res.status(401).json(failedLoginResponse);
     return;
   }
 
   const isValidPassword = await userRecord.isValidPassword(password);
 
   if (!isValidPassword) {
-    res.json(failedLoginResponse);
+    res.status(401).json(failedLoginResponse);
     return;
   }
   // Successful login

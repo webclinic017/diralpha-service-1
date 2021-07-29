@@ -39,7 +39,7 @@ const signup = async (req, res) => {
       await User.create({ emailAddress, password });
       res.json(sucessfulSignupResponse(emailAddress));
     } catch (error) {
-      res.json(signupErrorResponse(error));
+      res.status(500).json(signupErrorResponse(error));
     }
   }
 };
