@@ -1,17 +1,18 @@
 require('../../middleware/authentication');
 const express = require('express');
-const passport = require('passport');
+
+const signUp = require('../../middleware/authentication/index');
 
 const router = express.Router();
 
 router.post(
   '/',
-  passport.authenticate('signup', { session: false }),
+
   async (req, res) => {
-    res.json({
-      message: 'Signup successful',
-      user: req.user,
-    });
+    // console.log(req.body);
+    const content = await signUp(req.body.emailAddress, req.body.password);
+    console.log(content);
+    res.json(content);
   },
 );
 
