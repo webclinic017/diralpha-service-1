@@ -1,7 +1,11 @@
+/**
+ * DEPRECATED. Might find use one day if we decide to use passport. 07/29/2021 - RAHUL.
+ */
+
 const LocalStrategy = require('passport-local').Strategy;
 const { User } = require('../../../models');
 
-const defaultSignup = new LocalStrategy(
+const signup = new LocalStrategy(
   {
     usernameField: 'email_address',
     passwordField: 'password',
@@ -18,4 +22,4 @@ const defaultSignup = new LocalStrategy(
   },
 );
 
-module.exports = defaultSignup;
+module.exports = signup;
