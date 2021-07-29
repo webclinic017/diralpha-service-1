@@ -1,7 +1,3 @@
-const passport = require('passport');
-const defaultLocalLoginStrategy = require('./default-passport-login');
+const login = require('./login');
 
-passport.use(
-  'login',
-  defaultLocalLoginStrategy,
-);
+module.exports = login;

@@ -1,3 +1,7 @@
+/**
+ * DEPRECATED. Might find use one day if we decide to use passport. 07/29/2021 - RAHUL.
+ */
+
 const LocalStrategy = require('passport-local').Strategy;
 const { User } = require('../../../models');
 
@@ -20,7 +24,7 @@ const findUser = async (emailAddress, password, done) => {
   return done(null, user, { message: successfulLoginMessage });
 };
 
-const defaultLocalStrategy = new LocalStrategy(
+const login = new LocalStrategy(
   {
     usernameField: 'email_address',
     passwordField: 'password',
@@ -28,4 +32,4 @@ const defaultLocalStrategy = new LocalStrategy(
   findUser,
 );
 
-module.exports = defaultLocalStrategy;
+module.exports = login;
