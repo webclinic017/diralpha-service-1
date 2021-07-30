@@ -11,3 +11,6 @@ npm run start
 the diralpha backend uses sequelize to interact with a RDBMS like PostgreSQL, MySQL, or Oracle.
 
 
+# Generating JWT Keys
+
+node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"
