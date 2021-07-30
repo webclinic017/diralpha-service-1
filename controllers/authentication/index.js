@@ -3,18 +3,18 @@ const loginService = require('../../services/authentication/login');
 
 const authenticationController = {
 
-  signup(req, res) {
+  async signup(req, res) {
     const { emailAddress, password } = req.body;
 
-    const response = signupService.signup(emailAddress, password);
+    const response = await signupService.signup(emailAddress, password);
 
     res.json(response);
   },
 
-  login(req, res) {
+  async login(req, res) {
     const { emailAddress, password } = req.body;
 
-    const response = loginService.login(emailAddress, password);
+    const response = await loginService.login(emailAddress, password);
 
     const responseCode = response.success ? 200 : 401;
 

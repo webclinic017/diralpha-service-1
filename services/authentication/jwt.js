@@ -8,8 +8,8 @@ const jwtService = {
       emailAddress: user.emailAddress,
     };
 
-    const signature = process.env.JWT_SECRET_KEY;
-    const expiration = process.env.JWT_EXPIRATION_TTL;
+    const signature = process.env.ACCESS_TOKEN_KEY;
+    const expiration = parseInt(process.env.ACCESS_TOKEN_TTL, 10);
 
     return jwt.sign({ data }, signature, { expiresIn: expiration });
   },
