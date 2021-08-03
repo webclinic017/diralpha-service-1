@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const userSignupSchema = Joi.object({
+const userAuthSchema = Joi.object({
   body: Joi.object({
     emailAddress: Joi.string()
       .email()
@@ -12,4 +12,4 @@ const userSignupSchema = Joi.object({
   }),
 });
 
-module.exports = userSignupSchema;
+module.exports = userAuthSchema;
