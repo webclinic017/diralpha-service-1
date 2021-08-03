@@ -1,9 +1,15 @@
-// const joi = require('joi');
+const userSignupSchema = require('../../../schemas/authentication/user-signup');
 
-// const validate = async (req, res, next) => {
-// console.log('Validate: ', req.body);
-//   const { value, error } = userSchema.validate(req.body);
-// next();
-// };
+const signupValidation = {
+  validate(req, res, next) {
+    const validationObj = { body: req.body };
 
-// module.exports = validate;
+    const { value, error } = userSignupSchema.validate(validationObj);
+    if (!error) {
+      next(value);
+    } else {
+      res.status(422).send(error);
+    }
+  },
+};
+module.exports = signupValidation;
