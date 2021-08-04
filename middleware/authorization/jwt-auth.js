@@ -17,4 +17,18 @@ const expressJwtAuth = jwt({
   algorithms: ['HS256'],
 });
 
-module.exports = expressJwtAuth;
+const InvalidAuthErrorResponse = (message) => ({
+  success: false,
+  timestamp: Date.now(),
+  message,
+});
+
+const handleInvalidAuthError = (err, req, res, next) => {
+  if (err.name === 'UnauthorizedError') {
+    res.status(err.status).send(InvalidAuthErrorResponse(err.message));
+    return;
+  }
+  next();
+};
+
+module.exports = { expressJwtAuth, handleInvalidAuthError };
