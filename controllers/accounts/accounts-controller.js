@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const accountCreationService = require('../../services/accounts-api/accounts/account-creation-service');
 
 const accountCreationController = {
@@ -7,16 +8,12 @@ const accountCreationController = {
    * @param {Express Request} req the incoming HTTP request
    * @param {Express Response} res the HTTP response object used to service the request
    */
-  register(req, res) {
+  async register(req, res) {
     const alpacaAccountObject = JSON.stringify(req.body);
 
-    const { response, error } = accountCreationService.createBrokerageAccount(alpacaAccountObject);
+    const response = await accountCreationService.createBrokerageAccount(alpacaAccountObject);
 
-    if (!error) {
-      res.json(response);
-    } else {
-      res.status(422).json(error);
-    }
+    res.json(response);
   },
 
 };

@@ -3,9 +3,22 @@ const axios = require('axios');
 const accountCreationGateway = {
 
   async createAlpacaBrokerageAccount(alpacaAccountObject) {
-    const alpacaReponse = await axios.post(process.env.ALPACA_ACCOUNT_ENDPOINT,
-      alpacaAccountObject);
-    return alpacaReponse;
+    let alpacaResponse;
+
+    try {
+      alpacaResponse = await axios.post(process.env.ALPACA_ACCOUNT_ENDPOINT, alpacaAccountObject);
+    } catch (error) {
+      alpacaResponse = {
+        success: false,
+        status: error.status,
+        message: {
+          content: `Alpaca Error: ${error.message}`,
+          timestamp: Date.now(),
+        },
+      };
+    }
+
+    return alpacaResponse;
   },
 
 };
