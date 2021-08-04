@@ -1,23 +1,26 @@
+/* eslint-disable max-len */
 const alpacaAccountCreationGateway = require('../../../alpaca-gateway/broker/accounts/account-creation-gateway');
 
 const accountCreationService = {
 
-  createBrokerageAccount(req, res) {
+  createBrokerageAccount(alpacaAccountObject) {
     // Sends a HTTP POST Request to Alpaca and captures the response
     // returns a promise which will be the response
-    const response = alpacaAccountCreationGateway.createBrokerageAccount(res, req.body);
+    const alpacaResponse = alpacaAccountCreationGateway.createAlpacaBrokerageAccount(alpacaAccountObject);
 
-    response.then((value) => accountCreationService.handleAlpacaValidResponse(req, res, value))
-      .catch((error) => accountCreationService.handleAlpacaErrorResponse(req, res, error));
+    // alpacaResponse.then((value) => accountCreationService.handleAlpacaValidResponse(req, res, value))
+    //   .catch((error) => accountCreationService.handleAlpacaErrorResponse(req, res, error));
+
+    return alpacaResponse;
   },
 
-  handleAlpacaValidResponse(req, res, value) {
-    res.send(value);
-  },
+  // handleAlpacaValidResponse(req, res, value) {
+  //   res.send(value);
+  // },
 
-  handleAlpacaErrorResponse(req, res, error) {
-    res.status(422).send(`Alpaca Status Code 422 Invalid Form, ERROR MESSAGE: ${error.message}`);
-  },
+  // handleAlpacaErrorResponse(req, res, error) {
+  //   res.status(422).send(`Alpaca Status Code 422 Invalid Form, ERROR MESSAGE: ${error.message}`);
+  // },
 
 };
 

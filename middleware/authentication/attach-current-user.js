@@ -1,9 +1,10 @@
 const { User } = require('../../models');
 
-const failedAuthenticationResponse = {
+const failedAuthorizationResponse = {
   success: false,
   message: {
-    content: 'Failed authentication by jwt.',
+    content: 'Failed authorization by token.',
+    timestamp: Date.now(),
   },
 };
 
@@ -14,7 +15,7 @@ const attachCurrentUser = async (req, res, next) => {
   req.currentUser = userRecord;
 
   if (!userRecord) {
-    return res.status(401).json(failedAuthenticationResponse);
+    return res.status(401).json(failedAuthorizationResponse);
   }
   return next();
 };

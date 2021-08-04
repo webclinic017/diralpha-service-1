@@ -6,6 +6,7 @@ const jwtService = {
     const data = {
       id: user.id,
       emailAddress: user.emailAddress,
+      timestamp: Date.now(),
     };
 
     const signature = process.env.ACCESS_TOKEN_KEY;

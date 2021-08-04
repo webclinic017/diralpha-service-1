@@ -13,6 +13,7 @@ const signupService = {
     success: false,
     message: {
       content: 'Failed signup. This email address is already in use.',
+      timestamp: Date.now(),
     },
   },
 
@@ -24,6 +25,7 @@ const signupService = {
       success: true,
       message: {
         content: 'Successful signup.',
+        timestamp: Date.now(),
       },
     };
   },

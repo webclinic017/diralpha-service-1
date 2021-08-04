@@ -7,6 +7,7 @@ const loginService = {
     success: false,
     message: {
       content: 'Incorrect email address or password.',
+      timestamp: Date.now(),
     },
     token: null,
   },
@@ -19,6 +20,7 @@ const loginService = {
       success: true,
       message: {
         content: 'Successful login.',
+        timestamp: Date.now(),
       },
       token,
     };
