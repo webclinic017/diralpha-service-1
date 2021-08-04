@@ -2,7 +2,7 @@ const express = require('express');
 const accountValidation = require('../../../middleware/validation/accounts/validate-account');
 const accountsController = require('../../../controllers/accounts/accounts-controller');
 
-const { expressJwtAuth, handleInvalidAuthError } = require('../../../middleware/authorization/jwt-auth');
+const { expressJwtAuth, handleInvalidAuthError } = require('../../../middleware/authorization/jwt-authorization');
 const attachCurrentUser = require('../../../middleware/authorization/attach-current-user');
 
 const router = express.Router();
