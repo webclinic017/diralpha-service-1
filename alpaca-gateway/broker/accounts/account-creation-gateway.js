@@ -11,10 +11,8 @@ const accountCreationGateway = {
       alpacaResponse = {
         success: false,
         status: error.status,
-        message: {
-          content: `Alpaca Error: ${error.message}`,
-          timestamp: Date.now(),
-        },
+        message: `Alpaca Error: ${error.message}`,
+        timestamp: Date.now(),
       };
     }
 

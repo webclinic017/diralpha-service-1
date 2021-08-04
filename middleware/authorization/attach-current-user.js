@@ -2,10 +2,8 @@ const { User } = require('../../models');
 
 const failedAuthorizationResponse = {
   success: false,
-  message: {
-    content: 'Failed authorization by token.',
-    timestamp: Date.now(),
-  },
+  message: 'Failed authorization by token.',
+  timestamp: Date.now(),
 };
 
 const attachCurrentUser = async (req, res, next) => {

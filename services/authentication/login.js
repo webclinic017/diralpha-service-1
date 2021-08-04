@@ -5,10 +5,8 @@ const loginService = {
   failedLoginResponse: {
     user: null,
     success: false,
-    message: {
-      content: 'Incorrect email address or password.',
-      timestamp: Date.now(),
-    },
+    message: 'Incorrect email address or password.',
+    timestamp: Date.now(),
     token: null,
   },
 
@@ -18,10 +16,8 @@ const loginService = {
         emailAddress,
       },
       success: true,
-      message: {
-        content: 'Successful login.',
-        timestamp: Date.now(),
-      },
+      message: 'Successful login.',
+      timestamp: Date.now(),
       token,
     };
   },
