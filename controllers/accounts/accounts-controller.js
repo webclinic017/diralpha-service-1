@@ -8,7 +8,15 @@ const accountCreationController = {
    * @param {Express Response} res the HTTP response object used to service the request
    */
   register(req, res) {
-    accountCreationService.createBrokerageAccount(req, res);
+    const alpacaAccountObject = JSON.stringify(req.body);
+
+    const { response, error } = accountCreationService.createBrokerageAccount(alpacaAccountObject);
+
+    if (!error) {
+      res.json(response);
+    } else {
+      res.status(422).json(error);
+    }
   },
 
 };
