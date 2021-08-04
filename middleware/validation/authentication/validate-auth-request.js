@@ -8,7 +8,7 @@ const authValidation = {
     if (!error) {
       next();
     } else {
-      res.status(422).send(error);
+      res.status(422).json(error);
     }
   },
 };

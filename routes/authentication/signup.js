@@ -5,7 +5,10 @@ const authValidation = require('../../middleware/validation/authentication/valid
 
 const router = express.Router();
 
+// Checks if HTTP request has valid body formatting
 router.use('/', authValidation.validate);
+
+// Handles creating new account for user and sending appropriate response
 router.post('/', authenticationController.signup);
 
 module.exports = router;
