@@ -4,11 +4,11 @@ const accountCreationSchema = Joi.object({
   contact: {
     emailAddress: Joi.string().email().required(),
     phoneNumber: Joi.string().length(10).pattern(/^[0-9]+$/).required(),
-    streetAddressOne: Joi.string.required(),
-    streetAddressTwo: Joi.string.required(),
-    city: Joi.string.required(),
-    state: Joi.string.required(),
-    postalCode: Joi.string.required(),
+    streetAddressOne: Joi.string().required(),
+    streetAddressTwo: Joi.string().required(),
+    city: Joi.string().required(),
+    state: Joi.string().required(),
+    postalCode: Joi.string().required(),
   },
   identity: {
     givenName: Joi.string().required(),
@@ -18,7 +18,7 @@ const accountCreationSchema = Joi.object({
     taxIdType: Joi.string().required(),
     countryOfCitizenship: Joi.string(),
     countryOfBirth: Joi.string(),
-    countryOfTaxResidency: Joi.string().required(),
+    countryOfTaxResidence: Joi.string().required(),
     fundingSource: Joi.string().required(),
     annualMinIncome: Joi.string(),
     annualMaxIncome: Joi.string(),
@@ -54,9 +54,9 @@ const accountCreationSchema = Joi.object({
     {
       documentType: Joi.string().required(),
       documentSubType: Joi.string(),
-      id: Joi.string().uuid().required,
+      id: Joi.string().uuid().required(),
       mimeType: Joi.string().required(),
-      createdAt: Joi.date().timestamp.required(),
+      createdAt: Joi.date().timestamp().required(),
     },
   ),
   trustedContact: {

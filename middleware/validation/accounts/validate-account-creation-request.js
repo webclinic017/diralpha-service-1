@@ -1,10 +1,15 @@
-// const joi = require('joi');
+const accountCreationSchema = require('../../../schemas/accounts/account-creation');
 
 const accountValidation = {
 
   validate(req, res, next) {
-    console.log('HI VALIDATOR!');
-    next();
+    const { error } = accountCreationSchema.validate(req.body);
+
+    if (!error) {
+      next();
+    } else {
+      res.status(422).send(error);
+    }
   },
 
 };
