@@ -11,7 +11,7 @@ const signupService = {
   failedSignupResponse: {
     user: null,
     success: false,
-    content: 'Failed signup. This email address is already in use.',
+    message: 'Failed signup. This email address is already in use.',
     timestamp: Date.now(),
   },
 
