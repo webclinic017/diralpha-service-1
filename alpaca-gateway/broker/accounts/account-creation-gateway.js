@@ -13,6 +13,7 @@ const accountCreationGateway = {
         status: error.status,
         message: `Alpaca Error: ${error.message}`,
         timestamp: Date.now(),
+        alpacaError: error,
       };
     }
 
