@@ -1,5 +1,5 @@
 const express = require('express');
-const accountValidation = require('../../../middleware/validation/accounts/validate-account');
+const accountValidation = require('../../../middleware/validation/accounts/validate-account-creation-request');
 const accountsController = require('../../../controllers/accounts/accounts-controller');
 
 const { expressJwtAuth, handleInvalidAuthError } = require('../../../middleware/authorization/jwt-authorization');
