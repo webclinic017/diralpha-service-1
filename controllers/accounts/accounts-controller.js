@@ -9,9 +9,9 @@ const accountCreationController = {
    * @param {Express Response} res the HTTP response object used to service the request
    */
   async register(req, res) {
-    const alpacaAccountObject = JSON.stringify(req.body);
+    const accountObject = req.body;
 
-    const response = await accountCreationService.createBrokerageAccount(alpacaAccountObject);
+    const response = await accountCreationService.createBrokerageAccount(accountObject);
 
     res.json(response);
   },

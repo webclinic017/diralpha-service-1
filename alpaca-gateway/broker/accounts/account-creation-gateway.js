@@ -1,23 +1,38 @@
+/* eslint-disable max-len */
 const axios = require('axios');
 
 const accountCreationGateway = {
 
   async createAlpacaBrokerageAccount(alpacaAccountObject) {
-    let alpacaResponse;
+    let response;
 
     try {
-      alpacaResponse = await axios.post(process.env.ALPACA_ACCOUNT_ENDPOINT, alpacaAccountObject);
+      // Send POST request to /v1/accounts endpoint on Alpaca
+      const alpacaResponse = await axios({
+        headers: {
+          Authorization: process.env.ALPACA_AUTHORIZATION_HEADER,
+        },
+        method: 'POST',
+        url: process.env.ALPACA_ACCOUNT_ENDPOINT,
+        data: alpacaAccountObject,
+      });
+
+      // Handle successfull alpaca response and attach data
+      response = {
+        alpacaSuccess: true,
+        alpacaStatus: alpacaResponse.status,
+        alpacaMessage: alpacaResponse.data,
+      };
     } catch (error) {
-      alpacaResponse = {
-        success: false,
-        status: error.status,
-        message: `Alpaca Error: ${error.message}`,
-        timestamp: Date.now(),
-        alpacaError: error,
+      // Handle alpaca error
+      response = {
+        alpacaSuccess: false,
+        alpacaStatus: error.message,
+        alpacaMessage: error,
       };
     }
 
-    return alpacaResponse;
+    return response;
   },
 
 };
