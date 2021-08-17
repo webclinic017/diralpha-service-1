@@ -3,12 +3,12 @@ const Joi = require('joi');
 const accountCreationSchema = Joi.object({
   contact: {
     emailAddress: Joi.string().email().required(),
-    phoneNumber: Joi.string().length(10).pattern(/^[0-9]+$/).required(),
-    streetAddressOne: Joi.string().required(),
-    streetAddressTwo: Joi.string().required(),
+    phoneNumber: Joi.string().required(),
+    streetAddress: Joi.array().items(Joi.string().required()),
     city: Joi.string().required(),
     state: Joi.string().required(),
     postalCode: Joi.string().required(),
+    country: Joi.string(),
   },
   identity: {
     givenName: Joi.string().required(),
@@ -19,7 +19,7 @@ const accountCreationSchema = Joi.object({
     countryOfCitizenship: Joi.string(),
     countryOfBirth: Joi.string(),
     countryOfTaxResidence: Joi.string().required(),
-    fundingSource: Joi.string().required(),
+    fundingSource: Joi.array().items(Joi.string().required()),
     annualMinIncome: Joi.string(),
     annualMaxIncome: Joi.string(),
     liquidNetWorthMin: Joi.string(),
@@ -39,8 +39,8 @@ const accountCreationSchema = Joi.object({
   },
   agreements: Joi.array().items(
     {
-      agreementType: Joi.string().required(),
-      signedAt: Joi.date().timestamp().required(),
+      agreement: Joi.string().required(),
+      signedAt: Joi.date().required(),
       ipAddress: Joi.string().ip(),
     },
   ),
