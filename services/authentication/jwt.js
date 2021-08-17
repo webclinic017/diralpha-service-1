@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const jwtService = {
 
-  generateToken(user) {
+  generateBearerToken(user) {
     const data = {
       id: user.id,
       emailAddress: user.emailAddress,
@@ -12,7 +12,9 @@ const jwtService = {
     const signature = process.env.ACCESS_TOKEN_KEY;
     const expiration = parseInt(process.env.ACCESS_TOKEN_TTL, 10);
 
-    return jwt.sign({ data }, signature, { expiresIn: expiration });
+    const token = jwt.sign({ data }, signature, { expiresIn: expiration });
+
+    return `Bearer ${token}`;
   },
 };
 

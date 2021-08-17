@@ -40,7 +40,7 @@ const loginService = {
     userRecord.updateLastLogin();
 
     // generate JWT token from jwt service
-    const token = jwtService.generateToken(userRecord);
+    const token = jwtService.generateBearerToken(userRecord);
 
     return this.sucessfulLoginResponse(emailAddress, token);
   },
