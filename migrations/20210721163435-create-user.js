@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-const { v4: uuid4 } = require('uuid');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";')

@@ -4,7 +4,8 @@ const accountCreationSchema = Joi.object({
   contact: {
     emailAddress: Joi.string().email().required(),
     phoneNumber: Joi.string().required(),
-    streetAddress: Joi.array().items(Joi.string().required()),
+    streetAddressLineOne: Joi.string().required(),
+    streetAddressLineTwo: Joi.string().required(),
     city: Joi.string().required(),
     state: Joi.string().required(),
     postalCode: Joi.string().required(),
@@ -19,7 +20,7 @@ const accountCreationSchema = Joi.object({
     countryOfCitizenship: Joi.string(),
     countryOfBirth: Joi.string(),
     countryOfTaxResidence: Joi.string().required(),
-    fundingSource: Joi.array().items(Joi.string().required()),
+    fundingSource: Joi.string().required(),
     annualMinIncome: Joi.string(),
     annualMaxIncome: Joi.string(),
     liquidNetWorthMin: Joi.string(),
