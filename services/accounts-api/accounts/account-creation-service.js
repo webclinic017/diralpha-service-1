@@ -1,17 +1,26 @@
 /* eslint-disable max-len */
-// const snakeCaseKeys = require('snakecase-keys');
+const snakeCaseKeys = require('snakecase-keys');
 const { BrokerageAccount } = require('../../../models');
 
-// const alpacaAccountCreationGateway = require('../../../alpaca-gateway/broker/accounts/account-creation-gateway');
+const alpacaAccountCreationGateway = require('../../../alpaca-gateway/broker/accounts/account-creation-gateway');
 
 const accountCreationService = {
 
+  convertToAlpacaJSONSyntax(accountObject) {
+    const alpacaAccountObject = snakeCaseKeys(accountObject, { deep: true });
+    alpacaAccountObject.contact.street_address = [accountObject.contact.streetAddressLineOne, accountObject.contact.streetAddressLineTwo];
+    alpacaAccountObject.identity.funding_source = [accountObject.identity.fundingSource];
+    delete alpacaAccountObject.contact.street_address_line_one;
+    delete alpacaAccountObject.contact.street_address_line_two;
+    return alpacaAccountObject;
+  },
+
   async createBrokerageAccount(accountObject) {
     // Converts object keys to snake case because Alpaca needs snake casessss
-    // const alpacaAccountObject = snakeCaseKeys(accountObject, { deep: true });
-
-    // const alpacaResponse = await alpacaAccountCreationGateway.createAlpacaBrokerageAccount(alpacaAccountObject);
-    const alpacaResponse = { success: true, message: { accountStatus: 'ACTIVE', currency: 'USD' } };
+    const alpacaAccountObject = this.convertToAlpacaJSONSyntax(accountObject);
+    console.log(alpacaAccountObject);
+    const alpacaResponse = await alpacaAccountCreationGateway.createAlpacaBrokerageAccount(alpacaAccountObject);
+    // const alpacaResponse = { success: true, message: { accountStatus: 'ACTIVE', currency: 'USD' } };
     // If alpaca response returned error, just return the response
     if (!alpacaResponse.success) {
       return alpacaResponse;
@@ -51,12 +60,13 @@ const accountCreationService = {
       },
     } = accountObject;
 
-    const { accountStatus, currency } = alpacaResponse.message;
+    const { status, currency } = alpacaResponse.message;
     const accountNumber = 0;
     // Create entry in database
+    console.log(alpacaResponse);
     const brokerageAccount = await BrokerageAccount.create({
       accountNumber,
-      status: accountStatus,
+      status,
       currency,
       firstName,
       lastName,
