@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.User);
     }
   }
   BrokerageAccount.init({
@@ -45,6 +46,7 @@ module.exports = (sequelize, DataTypes) => {
     trustedContactEmailAddress: DataTypes.STRING,
   }, {
     sequelize,
+    tableName: 'brokerage_accounts',
     modelName: 'BrokerageAccount',
     underscored: true,
   });

@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // models.brokerage_accounts: 
     }
 
     async updatePassword(password) {
@@ -46,6 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     sequelize,
+    tableName: 'users',
     modelName: 'User',
     underscored: true,
   });
