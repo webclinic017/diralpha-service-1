@@ -19,16 +19,16 @@ const accountCreationGateway = {
 
       // Handle successfull alpaca response and attach data
       response = {
-        alpacaSuccess: true,
-        alpacaStatus: alpacaResponse.status,
-        alpacaMessage: alpacaResponse.data,
+        success: true,
+        status: alpacaResponse.status,
+        message: alpacaResponse.data,
       };
     } catch (error) {
       // Handle alpaca error
       response = {
-        alpacaSuccess: false,
-        alpacaStatus: error.message,
-        alpacaMessage: error,
+        success: false,
+        status: error.message,
+        message: error,
       };
     }
 
