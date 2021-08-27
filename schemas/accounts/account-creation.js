@@ -12,8 +12,8 @@ const accountCreationSchema = Joi.object({
     country: Joi.string(),
   },
   identity: {
-    givenName: Joi.string().required(),
-    familyName: Joi.string().required(),
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
     dateOfBirth: Joi.date().required(),
     taxId: Joi.string().required(),
     taxIdType: Joi.string().required(),
@@ -61,8 +61,8 @@ const accountCreationSchema = Joi.object({
     },
   ),
   trustedContact: {
-    givenName: Joi.string().required(),
-    familyName: Joi.string().required(),
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
     emailAddress: Joi.string().email().required(),
   },
 });
