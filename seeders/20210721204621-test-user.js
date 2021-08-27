@@ -2,12 +2,12 @@
 /* eslint-disable lines-around-directive */
 /* eslint-disable no-unused-vars */
 const bcrypt = require('bcryptjs');
-const userData = require('../config/MOCK_USER_DATA.json');
+const userData = require('../config/mock-user-data.json');
 
 const currentTime = new Date();
 const mockUserDataWithLogins = userData.map((user) => ({
-  email_address: user.email_address,
-  password: bcrypt.hashSync(user.password, 10),
+  email_address: user.authentication.emailAddress,
+  password: bcrypt.hashSync(user.authentication.password, 10),
   last_login: currentTime,
   created_at: currentTime,
   updated_at: currentTime,
