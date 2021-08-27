@@ -6,23 +6,25 @@ const alpacaAccountCreationGateway = require('../../../alpaca-gateway/broker/acc
 
 const accountCreationService = {
 
-  convertToAlpacaJSONSyntax(accountDataObject) {
+  convertToAlpacaJSONSyntax(currentUser, accountDataObject) {
     // bs code needed to change to alpaca's required syntax for their API
-
     const alpacaAccountDataObject = snakeCaseKeys(accountDataObject, { deep: true });
 
     // changes address lines to array of lines
     alpacaAccountDataObject.contact.street_address = [accountDataObject.contact.streetAddressLineOne];
 
     // adds line two if available
-    if (accountDataObject.contact.streetAddressLineTwo) {
+    if (accountDataObject.contact.streetAddressLineTwo != null) {
       alpacaAccountDataObject.contact.street_address.push(accountDataObject.contact.streetAddressLineTwo);
+    }
+
+    if (!accountDataObject.contact.emailAddress) {
+      alpacaAccountDataObject.contact.email_address = currentUser.dataValues.emailAddress;
     }
 
     // transforms other fields, look at
     // https://alpaca.markets/docs/broker/api-references/accounts/accounts/#request-1
     // for more info
-    alpacaAccountDataObject.identity.funding_source = [accountDataObject.identity.fundingSource];
     alpacaAccountDataObject.identity.given_name = accountDataObject.identity.firstName;
     alpacaAccountDataObject.identity.family_name = accountDataObject.identity.lastName;
     alpacaAccountDataObject.trusted_contact.given_name = accountDataObject.trustedContact.firstName;
@@ -39,19 +41,7 @@ const accountCreationService = {
     return alpacaAccountDataObject;
   },
 
-  async createBrokerageAccount(currentUser, accountDataObject) {
-    // Converts object keys to snake case because Alpaca needs snake casessss
-    const alpacaAccountDataObject = this.convertToAlpacaJSONSyntax(accountDataObject);
-
-    const { id: UserId } = currentUser.dataValues;
-
-    const alpacaResponse = await alpacaAccountCreationGateway.createAlpacaBrokerageAccount(alpacaAccountDataObject);
-
-    // If alpaca response returned error, just return the response
-    if (!alpacaResponse.success) {
-      return alpacaResponse;
-    }
-
+  structureAccountData(accountDataObject, alpacaResponse) {
     // destructure fields
     const {
       identity: {
@@ -87,10 +77,13 @@ const accountCreationService = {
       },
     } = accountDataObject;
 
-    const { status, currency, account_number: accountNumber } = alpacaResponse.message;
+    const {
+      status, currency, account_number: accountNumber, id: alpacaAccountId,
+    } = alpacaResponse.message;
 
     const account = {
       accountNumber,
+      alpacaAccountId,
       status,
       currency,
       firstName,
@@ -117,7 +110,41 @@ const accountCreationService = {
       trustedContactLastName,
       trustedContactEmailAddress,
     };
-    
+
+    return account;
+  },
+
+  isUniqueUser(UserId) {
+    return BrokerageAccount.findOne({ where: { UserId } })
+      .then((token) => token !== null)
+      .then((found) => !found);
+  },
+
+  async createBrokerageAccount(currentUser, accountDataObject) {
+    const { id: UserId } = currentUser.dataValues;
+
+    // check if a brokerage account already exists or not
+    const isUniqueUser = await this.isUniqueUser(UserId);
+
+    if (!isUniqueUser) {
+      return {
+        success: false,
+        timestamp: new Date(),
+        message: 'A brokerage account already exists for this user.',
+      };
+    }
+    // Converts object keys to snake case because Alpaca needs snake casessss
+    const alpacaAccountDataObject = this.convertToAlpacaJSONSyntax(currentUser, accountDataObject);
+
+    const alpacaResponse = await alpacaAccountCreationGateway.createAlpacaBrokerageAccount(alpacaAccountDataObject);
+
+    // If alpaca response returned error, just return the response
+    if (!alpacaResponse.success) {
+      return alpacaResponse;
+    }
+
+    const account = this.structureAccountData(accountDataObject, alpacaResponse);
+
     // Create entry in database
     let brokerageAccount = null;
     try {
@@ -139,7 +166,7 @@ const accountCreationService = {
       success: true, /// FIX THIS TO NEW CONST FILE
       message: {
         id: brokerageAccount.id,
-        accountNumber,
+        accountNumber: alpacaResponse.message.account_number,
         createdAt: brokerageAccount.createdAt,
         status: brokerageAccount.status,
       },
