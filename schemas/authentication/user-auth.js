@@ -7,7 +7,6 @@ const userAuthSchema = Joi.object({
       .required(),
     password: Joi.string()
       .min(8)
-      .alphanum()
       .required(),
   }),
 });
