@@ -6,12 +6,12 @@ const attachCurrentUser = require('../middleware/authorization/attach-current-us
 // signup/login endpoint must be ahead of authorization middleware
 router.use('/', require('./authentication'));
 
+// authorization and other middleware
 router.use('/', expressJwtAuth);
 router.use(handleInvalidAuthError);
 router.use('/', attachCurrentUser);
 
+// apis
 router.use('/', require('./accounts-api'));
-router.use('/', require('./trading-api'));
-router.use('/', require('./data-streaming-api'));
 
 module.exports = router;
