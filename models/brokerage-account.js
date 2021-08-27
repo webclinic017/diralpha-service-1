@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   BrokerageAccount.init({
     accountNumber: DataTypes.STRING,
+    alpacaAccountId: DataTypes.STRING,
     status: DataTypes.STRING,
     currency: DataTypes.STRING,
     firstName: DataTypes.STRING,
@@ -29,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     countryOfCitizenship: DataTypes.STRING,
     countryOfBirth: DataTypes.STRING,
     countryOfTaxResidence: DataTypes.STRING,
-    fundingSource: DataTypes.STRING,
+    fundingSource: DataTypes.ARRAY(DataTypes.STRING),
     phoneNumber: DataTypes.STRING,
     streetAddressLineOne: DataTypes.STRING,
     streetAddressLineTwo: DataTypes.STRING,

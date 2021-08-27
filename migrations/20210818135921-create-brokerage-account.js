@@ -12,6 +12,9 @@ module.exports = {
         account_number: {
           type: Sequelize.STRING,
         },
+        alpaca_account_id: {
+          type: Sequelize.STRING,
+        },
         status: {
           type: Sequelize.STRING,
         },
@@ -43,7 +46,7 @@ module.exports = {
           type: Sequelize.STRING,
         },
         funding_source: {
-          type: Sequelize.STRING,
+          type: Sequelize.ARRAY(Sequelize.STRING),
         },
         phone_number: {
           type: Sequelize.STRING,
