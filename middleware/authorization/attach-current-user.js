@@ -8,7 +8,7 @@ const failedAuthorizationResponse = {
 
 const attachCurrentUser = async (req, res, next) => {
   const decodedTokenData = req.token.data;
-  const userRecord = await User.findOne({ id: decodedTokenData.id });
+  const userRecord = await User.findOne({ where: { id: decodedTokenData.id } });
 
   req.currentUser = userRecord;
 
