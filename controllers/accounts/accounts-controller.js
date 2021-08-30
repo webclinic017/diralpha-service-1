@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 const accountCreationService = require('../../services/accounts-api/accounts/account-creation-service');
 const accountDeletionService = require('../../services/accounts-api/accounts/account-deletion-service');
+const accountDetailsService = require('../../services/accounts-api/accounts/account-details-service');
 
 const accountCreationController = {
 
@@ -26,6 +27,14 @@ const accountCreationController = {
     res.json(response);
   },
 
+  async getAccountDetails(req, res) {
+    const { accountId } = req.params;
+    const { currentUser } = req;
+
+    const response = await accountDetailsService.getBrokerageAccountDetails(currentUser, accountId);
+
+    res.json(response);
+  },
 };
 
 module.exports = accountCreationController;
