@@ -9,7 +9,7 @@ const accountDeletionService = {
     let account;
 
     try {
-      account = await BrokerageAccount.findOne({ where: { id: accountId } });
+      account = await BrokerageAccount.findOne({ where: { id: accountId, UserId: currentUser.dataValues.id } });
     } catch (error) {
       return {
         success: false,
@@ -22,10 +22,13 @@ const accountDeletionService = {
 
     if (account !== null) {
       const { alpacaAccountId } = account;
-      account.update({ status: 'ACCOUNT_CLOSED' });
+
       const alpacaResponse = await alpacaAccountDeletionGateway.deleteAlpacaBrokerageAccount(alpacaAccountId);
 
       if (alpacaResponse.success) {
+        // update status to closed instead of deleting row
+        account.update({ status: 'ACCOUNT_CLOSED' });
+
         response = {
           success: true,
           timestamp: new Date(),
