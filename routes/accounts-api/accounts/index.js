@@ -9,4 +9,7 @@ mainAccountsRouter.route('/:accountId')
 mainAccountsRouter.route('/:accountId')
   .get(require('./get-brokerage-account-details'));
 
+mainAccountsRouter.route('/:accountId')
+  .patch(require('./update-brokerage-account-details'));
+
 module.exports = mainAccountsRouter;

@@ -1,6 +1,6 @@
 const accountCreationSchema = require('../../../schemas/accounts/account-creation');
 
-const accountValidation = {
+const accountCreationRequestValidation = {
 
   validate(req, res, next) {
     const { error } = accountCreationSchema.validate(req.body);
@@ -14,4 +14,4 @@ const accountValidation = {
 
 };
 
-module.exports = accountValidation;
+module.exports = accountCreationRequestValidation;

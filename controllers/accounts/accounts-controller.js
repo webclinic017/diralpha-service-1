@@ -2,6 +2,7 @@
 const accountCreationService = require('../../services/accounts-api/accounts/account-creation-service');
 const accountDeletionService = require('../../services/accounts-api/accounts/account-deletion-service');
 const accountDetailsService = require('../../services/accounts-api/accounts/account-details-service');
+const accountUpdateService = require('../../services/accounts-api/accounts/account-update-service');
 
 const accountCreationController = {
 
@@ -32,6 +33,16 @@ const accountCreationController = {
     const { currentUser } = req;
 
     const response = await accountDetailsService.getBrokerageAccountDetails(currentUser, accountId);
+
+    res.json(response);
+  },
+
+  async updateAccountDetails(req, res) {
+    const { accountId } = req.params;
+    const { currentUser } = req;
+    const accountDataObject = req.body;
+
+    const response = await accountUpdateService.updateBrokerageAccountDetails(currentUser, accountId, accountDataObject);
 
     res.json(response);
   },
