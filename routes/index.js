@@ -4,14 +4,14 @@ const { expressJwtAuth, handleInvalidAuthError } = require('../middleware/author
 const attachCurrentUser = require('../middleware/authorization/attach-current-user');
 
 // signup/login endpoint must be ahead of authorization middleware
-router.use('/', require('./authentication'));
+router.use('/v1', require('./authentication'));
 
 // authorization and other middleware
-router.use('/', expressJwtAuth);
+router.use('/v1', expressJwtAuth);
 router.use(handleInvalidAuthError);
-router.use('/', attachCurrentUser);
+router.use('/v1', attachCurrentUser);
 
 // apis
-router.use('/', require('./accounts-api'));
+router.use('/v1', require('./accounts-api'));
 
 module.exports = router;
